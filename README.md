@@ -51,31 +51,30 @@
 
 ```mermaid
 flowchart TD
-    subgraph 🎙️ 智能硬件语音层
-        A["🎙️ 小米小爱音箱<br/>(Xiaomi Speaker Pro)"] -->|"1. 语音唤醒与指令口述"| B["🎤 MiGPT 桥接服务引擎<br/>(Node.js / daemon 模式)"]
-        B -->|"2. 语音打断与TTS播放"| A
+    subgraph S1["🎙️ 智能硬件语音层"]
+        A["🎙️ 小米小爱音箱 (Xiaomi Speaker)"] -->|"1. 语音唤醒与指令口述"| B["🎤 MiGPT 桥接引擎 (Node.js daemon)"]
+        B -->|"2. 语音打断与 TTS 播放"| A
     end
 
-    subgraph 🧠 AI 大脑与数据处理层
-        B -->|"3. 正则唤醒词拦截<br/>(小赫/童童/赫尔墨斯)"| C["🧠 Hermes Agent 大脑<br/>(run_baby_hermes_chat.py / LLM)"]
-        C -->|"4. 自然语言结构化解析"| D[("💾 本地 SQLite 数据库<br/>(baby_tracker.db / 离线优先)")]
-        D -->|"5. 触发看板自动计算"| E["📊 数据渲染引擎<br/>(update_baby_dashboard.py)"]
-        C -->|"6. 生成口语化回复"| B
+    subgraph S2["🧠 AI 大脑与数据处理层"]
+        B -->|"3. 唤醒词拦截 (小赫/童童/赫尔墨斯)"| C["🧠 Hermes Agent 大脑 (Python LLM Runner)"]
+        C -->|"4. 自然语言结构化解析"| D[("💾 本地 SQLite 数据库 (baby_tracker.db)")]
+        D -->|"5. 触发看板自动计算"| E["📊 数据渲染引擎 (update_baby_dashboard.py)"]
+        C -->|"6. 口语化语音回复"| B
     end
 
-    subgraph 🌐 Web 可视化与加密网关层
-        E -->|"7. 自动生成静态 UI"| F["🍼 成长看板与 AI 气泡后端<br/>(Python HTTP Server :8787)"]
-        F -->|"8. 提供监控 API & /status.html"| F
-        F <-->|"9. TCP HTTP/2 加密隧道"| G["🌐 Cloudflare Named Tunnel<br/>(baby.maxtokens.win)"]
-        G <-->|"10. 公网 HTTPS 安全访问"| H["📱 全家终端手机 / PC 浏览器"]
+    subgraph S3["🌐 Web 可视化与加密网关层"]
+        E -->|"7. 自动生成 UI"| F["🍼 成长看板与 AI 气泡后端 (HTTP Server 8787)"]
+        F <-->|"8. TCP HTTP2 加密隧道"| G["🌐 Cloudflare Named Tunnel (baby.maxtokens.win)"]
+        G <-->|"9. 公网 HTTPS 安全访问"| H["📱 全家终端手机与 PC 浏览器"]
     end
 
-    subgraph 🛡️ 24/7 运维监控与消抖告警层
-        I["🛡️ 监控告警守护进程<br/>(monitor_baby_services.py)"] -->|"15s 心跳探测"| B
+    subgraph S4["🛡️ 24/7 运维监控与消抖告警层"]
+        I["🛡️ 监控告警守护进程 (monitor_baby_services.py)"] -->|"15s 心跳探测"| B
         I -->|"15s 心跳探测"| F
         I -->|"15s 心跳探测"| G
-        I -->|"连续3次检测失败触发自动恢复"| J["🔄 自动拉起脚本<br/>(start_baby_services.sh)"]
-        I -->|"异常 / 自动重启恢复通知"| K["📲 Telegram 告警推送<br/>(hermes send --to telegram)"]
+        I -->|"连续 3 次失败自动恢复"| J["🔄 自动拉起脚本 (start_baby_services.sh)"]
+        I -->|"推送异常与恢复通知"| K["📲 Telegram 告警推送 (hermes send)"]
     end
 ```
 
