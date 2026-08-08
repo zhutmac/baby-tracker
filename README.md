@@ -66,6 +66,25 @@ flowchart TD
 
 ---
 
+## 📋 环境要求与前置准备
+
+### 1. 📢 硬件设备
+* **小米智能音箱**：支持语音唤醒的小米小爱音箱（推荐 *Xiaomi 智能音箱 Pro / 小爱音箱 Play / 小爱触屏音箱* 等）；
+* **常驻运行主机**：任意 24 小时不间断运行的主机（MacBook / Linux 服务器 / 树莓派 / 软路由 NAS / Windows WSL2），用于常驻后台 Agent 与看板服务。
+
+### 2. 💻 软件与运行环境
+* **Node.js**：`v18.0.0` 或更高版本（用于运行 MiGPT-Next 小爱音箱桥接引擎）；
+* **Python**：`v3.9` 或更高版本（用于运行 Hermes Agent AI 大脑、SQLite 数据落库、看板渲染与 24/7 健康监控守护进程）；
+* **Git**：用于代码拉取与版本管理。
+
+### 3. 🔑 云端服务与账号凭据
+* **小米家庭账号**：账号名与密码（用于 MiGPT 接入小爱音箱 API）；
+* **LLM / Hermes Agent**：OpenAI API Key / DeepSeek / Claude / Local LLM 密钥（用于 AI 自然语言理解与分析）；
+* **Cloudflare 账号（选填）**：Cloudflare Named Tunnel Token（用于生成全网免费可访问的固定 HTTPS 域名，未配置则使用免费 Quick Tunnel 随机域名）；
+* **Telegram Bot（选填）**：Telegram Bot Token 与 Chat ID（用于接收 24/7 监控报警与自动恢复通知）。
+
+---
+
 ## 🛠️ 快速开始
 
 ### 1. 克隆仓库与准备环境
